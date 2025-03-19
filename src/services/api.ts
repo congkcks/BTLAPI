@@ -80,6 +80,35 @@ class ApiService {
   delete<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     return this.request<T>(endpoint, { ...options, method: 'DELETE' });
   }
+
+  // POST request với FormData (để upload ảnh)
+  async postFormData<T>(endpoint: string, formData: FormData): Promise<T> {
+    try {
+      const url = `${this.baseUrl}${endpoint}`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        // Không đặt Content-Type khi sử dụng FormData vì trình duyệt sẽ tự xử lý
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(
+          errorData?.message || `Server responded with status: ${response.status}`
+        );
+      }
+
+      if (response.status === 204) {
+        return {} as T;
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('API form data request failed:', error);
+      throw error;
+    }
+  }
 }
 
 // Create a new instance with the local API URL

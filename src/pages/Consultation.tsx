@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageSquare, Send, Paperclip, RefreshCw } from 'lucide-react';
+import { MessageSquare, Send, RefreshCw } from 'lucide-react';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-// Import chỉ sử dụng một service - consultationService
 import { chatService, ChatMessage } from '@/services/consultationService';
 
 // Định nghĩa interface Message cho UI
@@ -233,8 +232,8 @@ const Consultation: React.FC = () => {
               >
                 <div
                   className={`rounded-2xl p-4 ${msg.isUser
-                      ? 'bg-blue-100 text-right'
-                      : 'bg-orange-100'
+                    ? 'bg-blue-100 text-right'
+                    : 'bg-orange-100'
                     }`}
                 >
                   <p className="whitespace-pre-line">{msg.content}</p>
@@ -269,9 +268,6 @@ const Consultation: React.FC = () => {
                   onKeyDown={handleKeyDown}
                   disabled={isLoading}
                 />
-                <Button variant="ghost" className="absolute right-2 top-1/2 transform -translate-y-1/2">
-                  <Paperclip size={20} className="text-gray-400" />
-                </Button>
               </div>
               <Button
                 className="bg-engace-orange hover:bg-engace-orange/90 rounded-xl px-4"
@@ -279,25 +275,6 @@ const Consultation: React.FC = () => {
                 disabled={isLoading || !message.trim()}
               >
                 <Send size={20} />
-              </Button>
-            </div>
-            <div className="flex justify-between mt-4">
-              <Button variant="outline" className="flex-1 mr-2">
-                Đính kèm ảnh
-              </Button>
-              <Button
-                variant="outline"
-                className="flex-1 mr-2"
-                disabled={isLoading}
-              >
-                Suy luận sâu
-              </Button>
-              <Button
-                variant="outline"
-                className="flex-1"
-                disabled={isLoading}
-              >
-                Tìm kiếm web
               </Button>
             </div>
           </div>
